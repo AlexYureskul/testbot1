@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Мое Telegram Web App</title>
+    <meta charset="UTF-8">
+    <!-- Подключаем Telegram Web Apps JS -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 50px;
+        }
+        #mainButton {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Привет, <span id="username"></span>!</h1>
+    <p>Это ваше первое Telegram Web App.</p>
+    <button id="mainButton">Нажми меня</button>
+
+    <script>
+        // Инициализируем объект WebApp
+        const tg = window.Telegram.WebApp;
+
+        // Устанавливаем имя пользователя
+        document.getElementById('username').innerText = tg.initDataUnsafe.user.first_name;
+
+        // Обработка нажатия кнопки
+        document.getElementById('mainButton').addEventListener('click', () => {
+            tg.MainButton.setText("Спасибо!");
+            tg.MainButton.show();
+            tg.MainButton.onClick(() => {
+                tg.close(); // Закрываем веб-приложение
+            });
+        });
+
+        // Устанавливаем тему в соответствии с темой Telegram
+        document.body.style.backgroundColor = tg.themeParams.bg_color || '#FFFFFF';
+        document.body.style.color = tg.themeParams.text_color || '#000000';
+    </script>
+</body>
+</html>
